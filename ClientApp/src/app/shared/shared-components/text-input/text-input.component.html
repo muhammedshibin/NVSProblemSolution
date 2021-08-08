@@ -1,0 +1,23 @@
+<div class="form-group row">
+
+    <table>
+        <tr>
+            <td style="width: 10em;">
+                <label style="font-size: large;">{{label}}
+                    <span *ngIf="isRequired">
+                        <mat-icon [ngStyle]="{'color':'red'}">stop</mat-icon>                        
+                    </span></label>
+            </td>
+            <td>
+                <input type="{{type}}" class="form-control col-sm-12" placeholder="{{label}}"
+                    (input)="onChange($any($event.target).value)" (blur)="onTouched()" id="{{label}}" #input>
+                <div class="text-danger" *ngIf="controlDir&& controlDir.control 
+    && !controlDir.control.valid && controlDir.control.touched">
+                    <span *ngIf="controlDir.control.errors!.required">{{label}} is required</span>
+                    <span *ngIf="controlDir.control.errors!.pattern">Invalid {{label}}</span>
+                </div>
+
+            </td>
+        </tr>
+    </table>
+</div>

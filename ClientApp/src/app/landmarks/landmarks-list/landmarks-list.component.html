@@ -1,0 +1,71 @@
+<div style="margin-top: 2em;">
+  <div class="d-flex justify-content-between">
+    <input type="text" class="form-control col-sm-2 ml-3" placeholder="Search" #search (keyup)="searchLandmark()">
+    <button class="btn btn-warning mr-3" routerLink="/add">ADD NEW LANDMARK</button>
+  </div>
+  <div style="margin-top:4em;position: relative;">
+    <table mat-table [dataSource]="landmarks" class="mat-elevation-z8">
+      <!--- Note that these columns can be defined in any order.
+              The actual rendered columns are set as a property on the row definition" -->
+
+      <!-- Position Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>Name</th>
+        <td mat-cell *matCellDef="let element">
+          <ng-template #tipContent>
+            <table>
+              <tr>
+                <td>Address : {{element.address}}</td>
+              </tr>
+              <tr>
+                <td>Latitude :{{element.latitude}}</td>
+              </tr>
+              <tr>
+                <td>Longitude {{element.longitude}}</td>
+              </tr>
+              <tr>
+                <td>Contact Number: {{element.contactNumber}}</td>
+              </tr>
+              <tr>
+                <td>Distance :{{element.distance}}</td>
+              </tr>
+              <tr>
+                <td>Created Date :{{element.createdDate | date}}</td>
+              </tr>
+            </table>
+          </ng-template>
+          <p [ngbTooltip]="tipContent">{{ element.landmarkName }}</p>
+        </td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="address">
+        <th mat-header-cell *matHeaderCellDef>Address</th>
+        <td mat-cell *matCellDef="let element">{{ element.address.length > 15 ?(element.address | slice:0:15)+'(..)':(element.address) }}</td>
+      </ng-container>
+
+      <!-- Weight Column -->
+      <ng-container matColumnDef="pointorder">
+        <th mat-header-cell *matHeaderCellDef>Point Order</th>
+        <td mat-cell *matCellDef="let element">{{ element.pointOrder }}</td>
+      </ng-container>
+
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="distance">
+        <th mat-header-cell *matHeaderCellDef>Distance</th>
+        <td mat-cell *matCellDef="let element">{{ element.distance }}</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+    <div *ngIf="landmarks.length > 0">
+      <mat-paginator [length]="length" [pageIndex]="0" [pageSize]="landmarkParams.pageSize"
+        [pageSizeOptions]="pageSizeOptions" (page)="onPageChange($event)">
+      </mat-paginator>
+    </div>
+
+
+  </div>
+
+</div>

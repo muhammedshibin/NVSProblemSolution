@@ -1,0 +1,39 @@
+<div class="container mt-5">
+
+  <div class="d-flex justify-content-between">
+    <h1>Add Landmark</h1>
+    <button class="btn btn-info ml-5 mt-2" routerLink="/">Go to HomePage</button>
+  </div>
+  <hr />
+
+  <form [formGroup]="landmarkForm" (ngSubmit)="onSubmit()">
+    <div class="row">
+      <div class="col-sm-6">
+        <app-text-input [label]="'Name'" formControlName="landmarkName" [isRequired]="true"></app-text-input>
+        <app-text-input [label]="'Latitude'" formControlName="latitude" [isRequired]="true"></app-text-input>
+        <app-text-input [label]="'Contact No'" formControlName="contactNumber" [isRequired]="true"></app-text-input>
+      </div>
+      <div class="col-sm-6">
+        <div class="form-group row">
+          <table>
+            <tr>
+              <td style="width: 10em;">
+                <label style="font-size: large;">
+                  Address
+                </label>
+              </td>
+              <td>
+                <input class="form-control col-sm-12" ngx-google-places-autocomplete (onAddressChange)="handleAddressChange($event)" formControlName="address" placeholder="Address">
+              </td>
+            </tr>
+          </table>
+        </div>
+        <app-text-input [label]="'Longitude'" formControlName="longitude" [isRequired]="true"></app-text-input>
+        <button class="btn btn-success">Save Landmark</button>
+      </div>
+
+    </div>
+
+  </form>
+
+</div>
